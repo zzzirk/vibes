@@ -1,0 +1,62 @@
+version: 1
+disable_existing_loggers: false
+root:
+    handlers:
+        - console
+        - debug_file
+        - info_file
+    level: DEBUG
+    propagate: true
+formatters:
+    standard:
+        format: '%(asctime)s %(levelname)s %(module)s %(message)s'
+handlers:
+    console:
+        class: logging.StreamHandler
+        formatter: standard
+        level: WARNING
+    info_file:
+        backupCount: 30
+        class: logging.handlers.TimedRotatingFileHandler
+        filename: logs/info.log
+        filters: []
+        formatter: standard
+        level: INFO
+        when: midnight
+    debug_file:
+        backupCount: 30
+        class: logging.handlers.TimedRotatingFileHandler
+        filename: logs/debug.log
+        filters: []
+        formatter: standard
+        level: DEBUG
+        when: midnight
+loggers:
+    .:
+      handlers: [console]
+      level: DEBUG
+      propagate: true
+#    __main__:
+#      handlers: []
+#      level: DEBUG
+#      propagate: true
+#    stripper:
+#      handlers: [console]
+#      level: DEBUG
+#      propagate: false
+#    stripper.service:
+#      handlers: [console, debug_file]
+#      level: DEBUG
+#      propagate: true
+#    stripper.service.BaseService:
+#      handlers: [console, debug_file]
+#      level: DEBUG
+#      propagate: true
+    stripper.neo.NeoPixelThread:
+      handlers: [console, debug_file, info_file]
+      level: DEBUG
+      propagate: true
+    vibes:
+      handlers: [console, debug_file, info_file]
+      level: DEBUG
+      propagate: true
